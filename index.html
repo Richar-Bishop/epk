@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Playlist Records — Richard Bishop</title>
+<meta name="description" content="Richard Bishop — current and past playlist placements, song-by-song tracking, and save metrics.">
+<style>
+
+  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600;700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,300&display=swap');
+
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+  :root{
+    --black:#080808;
+    --dark:#111;
+    --surface:rgba(22,22,22,0.88);
+    --surface-2:rgba(28,28,28,0.88);
+    --border:#262626;
+    --red:#6b1010;
+    --red-bright:#B62323;
+    --white:#ede9e0;
+    --muted:#666660;
+    --green:#3f7a4f;
+    --display:'Oswald',sans-serif;
+    --body:'Source Sans 3',sans-serif;
+  }
+
+  html{scroll-behavior:smooth;}
+  body{
+    background:transparent;
+    color:var(--white);
+    font-family:var(--body);
+    font-size:15px;
+    line-height:1.5;
+    position:relative;
+  }
+
+  /* PAGE-WIDE BACKGROUND — sits behind everything, entire scroll length */
+  .bg-layer{
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background-image:url("https://i.imgur.com/gS7s3FZ.jpeg");
+    background-size:cover;
+    background-position:center 30%;
+    background-repeat:no-repeat;
+    z-index:-2;
+  }
+
+  .bg-overlay{
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background:linear-gradient(180deg, rgba(8,8,8,0.62) 0%, rgba(8,8,8,0.8) 30%, rgba(8,8,8,0.94) 65%, rgba(8,8,8,0.99) 100%);
+    z-index:-1;
+  }
+
+  /* HERO HEADER — matches EPK treatment */
+  .hero{
+    position:relative;
+    width:100%;
+    min-height:46vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    overflow:hidden;
+    padding:60px 24px 50px;
+  }
+
+  /* LAVA / BLOOD-RED GLOW DIVIDER — reusable */
+  .glow-divider{
+    position:relative;
+    width:100%;
+    height:3px;
+    background:linear-gradient(90deg,
+      transparent 0%,
+      rgba(182,35,35,0.15) 10%,
+      rgba(214,60,30,0.85) 35%,
+      rgba(255,120,40,0.95) 50%,
+      rgba(214,60,30,0.85) 65%,
+      rgba(182,35,35,0.15) 90%,
+      transparent 100%
+    );
+    box-shadow:
+      0 0 8px 1px rgba(255,90,30,0.65),
+      0 0 22px 4px rgba(182,35,35,0.55),
+      0 0 46px 10px rgba(120,15,15,0.4);
+    z-index:5;
+  }
+
+  .glow-divider-inline{
+    margin:40px 0;
+    height:2px;
+    box-shadow:
+      0 0 6px 1px rgba(255,90,30,0.6),
+      0 0 16px 3px rgba(182,35,35,0.5),
+      0 0 32px 7px rgba(120,15,15,0.35);
+  }
+
+  /* SITE NAV — icon buttons matching email signature style */
+  .site-nav{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:36px;
+    flex-wrap:wrap;
+    padding:30px 24px;
+  }
+
+  .nav-link{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+    text-decoration:none;
+    color:var(--muted);
+    transition:color 0.2s, transform 0.2s;
+  }
+
+  .nav-link:hover{
+    color:var(--white);
+    transform:translateY(-2px);
+  }
+
+  .nav-icon{
+    width:38px;
+    height:38px;
+    object-fit:contain;
+    filter:drop-shadow(0 2px 8px rgba(0,0,0,0.5));
+  }
+
+  .nav-label{
+    font-family:var(--display);
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+  }
+
+  /* SIDEBAR CTA BUTTONS */
+  .cta-stack{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-top:28px;
+  }
+
+  .cta-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    padding:13px 16px;
+    font-family:var(--display);
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    text-decoration:none;
+    border-radius:3px;
+    border:1px solid var(--border);
+    cursor:pointer;
+    transition:all 0.2s;
+  }
+
+  .cta-btn-primary{
+    background:var(--red-bright);
+    border-color:var(--red-bright);
+    color:var(--white);
+  }
+
+  .cta-btn-primary:hover{
+    background:#d62b2b;
+    box-shadow:0 0 18px rgba(182,35,35,0.5);
+  }
+
+  .cta-btn-secondary{
+    background:rgba(255,255,255,0.03);
+    color:var(--white);
+  }
+
+  .cta-btn-secondary:hover{
+    border-color:var(--red-bright);
+    color:var(--red-bright);
+  }
+
+  .hero-content{
+    position:relative;
+    z-index:2;
+  }
+
+  .hero-eyebrow{
+    font-family:var(--display);
+    font-size:12px;
+    font-weight:400;
+    letter-spacing:0.5em;
+    text-transform:uppercase;
+    color:var(--red-bright);
+    margin-bottom:24px;
+  }
+
+  .hero-name{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:clamp(2.4rem, 7vw, 5rem);
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    line-height:1;
+    color:var(--white);
+    text-shadow:0 4px 30px rgba(0,0,0,0.7);
+  }
+
+  .hero-page-title{
+    font-family:var(--display);
+    font-weight:600;
+    font-size:clamp(1rem,2vw,1.3rem);
+    letter-spacing:0.4em;
+    text-transform:uppercase;
+    color:var(--white);
+    margin-top:18px;
+    opacity:0.92;
+  }
+
+  .hero-tagline-img{
+    display:block;
+    margin:20px auto 0;
+    width:min(560px, 88vw);
+    height:auto;
+    filter:drop-shadow(0 4px 16px rgba(0,0,0,0.6));
+  }
+
+  /* LAYOUT */
+  .container{
+    max-width:1500px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  .section-label{
+    font-family:var(--display);
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:0.4em;
+    text-transform:uppercase;
+    color:var(--red-bright);
+    margin-bottom:28px;
+    display:flex;
+    align-items:center;
+    gap:20px;
+  }
+
+  .section-label::after{
+    content:'';
+    flex:1;
+    height:1px;
+    background:var(--border);
+  }
+
+  .dashboard{
+    display:grid;
+    grid-template-columns:300px 1fr 300px;
+    gap:0;
+    padding:56px 0;
+  }
+
+  .col{
+    padding:0 32px;
+  }
+
+  .col-left{border-right:1px solid var(--border);}
+  .col-right{border-left:1px solid var(--border);}
+
+  /* LEFT COLUMN — song placement counts */
+  .song-list{
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+  }
+
+  .song-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    padding:14px 0;
+    border-bottom:1px solid var(--border);
+  }
+
+  .song-name{
+    font-family:var(--body);
+    font-size:14px;
+    font-weight:600;
+    color:var(--white);
+  }
+
+  .song-count{
+    font-family:var(--display);
+    font-size:14px;
+    font-weight:700;
+    color:var(--red-bright);
+    flex-shrink:0;
+    margin-left:12px;
+  }
+
+  .song-count-label{
+    font-size:10px;
+    font-weight:400;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-left:4px;
+  }
+
+  .total-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    padding:20px 0 0;
+    margin-top:14px;
+    border-top:2px solid var(--red-bright);
+  }
+
+  .total-label{
+    font-family:var(--display);
+    font-size:13px;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--white);
+  }
+
+  .total-value{
+    font-family:var(--display);
+    font-size:28px;
+    font-weight:700;
+    color:var(--red-bright);
+  }
+
+  /* CENTER — current / past playlists */
+  .playlist-block{margin-bottom:56px;}
+  .playlist-block:last-child{margin-bottom:0;}
+
+  .playlist-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
+    gap:18px;
+  }
+
+  .playlist-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    padding:18px;
+    transition:border-color 0.25s ease;
+  }
+
+  .playlist-card:hover{border-color:var(--red-bright);}
+
+  .playlist-card.removed{opacity:0.55;}
+
+  .playlist-art{
+    width:100%;
+    aspect-ratio:1/1;
+    background:linear-gradient(135deg, #1a1a1a, #0c0c0c);
+    border:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:14px;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .playlist-art img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+
+  .playlist-art-icon{
+    font-family:var(--display);
+    font-size:11px;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color:var(--muted);
+    text-align:center;
+    padding:8px;
+  }
+
+  .playlist-platform-tag{
+    position:absolute;
+    top:8px;
+    right:8px;
+    font-family:var(--display);
+    font-size:9px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--white);
+    background:rgba(182,35,35,0.85);
+    padding:3px 7px;
+  }
+
+  .playlist-name{
+    font-family:var(--display);
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:0.02em;
+    text-transform:uppercase;
+    color:var(--white);
+    margin-bottom:6px;
+    line-height:1.25;
+  }
+
+  .playlist-curator{
+    font-size:11px;
+    color:var(--muted);
+    margin-bottom:10px;
+  }
+
+  .playlist-meta{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    font-size:11px;
+    color:var(--muted);
+    border-top:1px solid var(--border);
+    padding-top:10px;
+  }
+
+  .playlist-track{
+    font-weight:600;
+    color:var(--red-bright);
+  }
+
+  .playlist-saves{
+    font-family:var(--display);
+    font-weight:700;
+    color:var(--white);
+  }
+
+  .playlist-dates{
+    font-size:10px;
+    color:var(--muted);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+
+  /* RIGHT COLUMN — metrics */
+  .metric-block{margin-bottom:30px;}
+  .metric-block:last-child{margin-bottom:0;}
+
+  .metric-label{
+    font-family:var(--display);
+    font-size:11px;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:6px;
+  }
+
+  .metric-value{
+    font-family:var(--display);
+    font-size:30px;
+    font-weight:700;
+    color:var(--white);
+  }
+
+  .metric-value.accent{color:var(--red-bright);}
+
+  .metric-sub{
+    font-size:11px;
+    color:var(--muted);
+    margin-top:4px;
+  }
+
+  .metric-divider{
+    height:1px;
+    background:var(--border);
+    margin:24px 0;
+  }
+
+  .breakdown-row{
+    display:flex;
+    justify-content:space-between;
+    font-size:12px;
+    padding:7px 0;
+    border-bottom:1px solid var(--border);
+    color:var(--muted);
+  }
+
+  .breakdown-row span:last-child{
+    color:var(--white);
+    font-weight:600;
+  }
+
+  /* FOOTER */
+  footer{
+    position:relative;
+    padding:64px 24px 40px;
+    text-align:center;
+  }
+
+  .footer-fist{
+    width:140px;
+    height:64px;
+    object-fit:contain;
+    margin:0 auto 22px;
+    filter:drop-shadow(0 4px 16px rgba(182,35,35,0.35));
+    opacity:0.95;
+  }
+
+  .footer-name{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:1.3rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--white);
+  }
+
+  .footer-tagline{
+    font-family:var(--display);
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:0.35em;
+    text-transform:uppercase;
+    color:var(--red-bright);
+    margin-top:10px;
+  }
+
+  .footer-links{
+    display:flex;
+    justify-content:center;
+    gap:28px;
+    flex-wrap:wrap;
+    margin-top:26px;
+  }
+
+  .footer-links a{
+    font-family:var(--body);
+    font-size:12.5px;
+    letter-spacing:0.04em;
+    color:var(--muted);
+    text-decoration:none;
+    transition:color 0.2s;
+  }
+
+  .footer-links a:hover{color:var(--red-bright);}
+
+  .footer-meta{
+    margin-top:30px;
+    font-family:var(--display);
+    font-size:10.5px;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--muted);
+    opacity:0.75;
+  }
+
+  footer .red{color:var(--red-bright);}
+
+  /* DISCOGRAPHY — Albums / Singles sidebar blocks */
+  .discog-item{
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+    padding:12px 0;
+    border-bottom:1px solid var(--border);
+  }
+
+  .discog-item:last-child{border-bottom:none;}
+
+  .discog-art{
+    width:56px;
+    height:56px;
+    flex-shrink:0;
+    border:1px solid var(--border);
+    overflow:hidden;
+    background:linear-gradient(135deg,#1a1a1a,#0c0c0c);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .discog-art img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+
+  .discog-art-icon{
+    font-family:var(--display);
+    font-size:8px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+    text-align:center;
+    line-height:1.3;
+  }
+
+  .discog-info{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    min-width:0;
+  }
+
+  .discog-name{
+    font-family:var(--display);
+    font-size:13px;
+    font-weight:600;
+    color:var(--white);
+    line-height:1.3;
+  }
+
+  .discog-date{
+    font-family:var(--body);
+    font-size:11px;
+    color:var(--muted);
+    margin-top:3px;
+  }
+
+  .discog-date.upcoming{color:var(--red-bright);}
+
+  /* RESPONSIVE */
+  @media (max-width:1100px){
+    .dashboard{
+      grid-template-columns:1fr;
+    }
+    .col-left, .col-right{
+      border-right:none;
+      border-left:none;
+      border-top:1px solid var(--border);
+      padding-top:40px;
+      margin-top:40px;
+    }
+  }
+
+  @media (max-width:560px){
+    .hero{padding:48px 16px 36px;}
+    .container{padding:0 16px;}
+    .dashboard{padding:40px 0;}
+  }
+
+
+  /* --- CORRECTIONS / ADDITIONS --- */
+
+  --neon-green:#39ff6a;
+
+  .hero-tagline-text{
+    display:block;
+    margin:22px auto 0;
+    font-family:var(--display);
+    font-weight:700;
+    font-size:clamp(0.95rem, 2.6vw, 1.5rem);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--white);
+    text-shadow:0 2px 18px rgba(182,35,35,0.55), 0 1px 0 rgba(0,0,0,0.8);
+  }
+
+  .metric-value.green{
+    color:var(--neon-green);
+    text-shadow:0 0 10px rgba(57,255,106,0.45), 0 0 22px rgba(57,255,106,0.25);
+  }
+
+  .metric-value.red{
+    color:var(--red-bright);
+  }
+
+  .history-block{
+    margin-top:28px;
+    padding-top:24px;
+    border-top:1px solid var(--border);
+  }
+
+  .history-label{
+    font-family:var(--display);
+    font-size:11px;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:8px;
+  }
+
+  .history-value{
+    font-family:var(--display);
+    font-size:26px;
+    font-weight:700;
+    color:var(--white);
+  }
+
+  .history-sub{
+    font-size:11px;
+    color:var(--muted);
+    margin-top:4px;
+  }
+
+  .discog-blurb{
+    font-size:11.5px;
+    color:var(--muted);
+    line-height:1.5;
+    margin-top:8px;
+    padding-left:68px;
+  }
+
+  .footer-tagline-img{
+    display:block;
+    margin:14px auto 0;
+    width:min(380px, 78vw);
+    height:auto;
+    filter:drop-shadow(0 3px 12px rgba(182,35,35,0.35));
+    opacity:0.95;
+  }
+
+  .footer-copyright{
+    margin-top:18px;
+    font-size:11px;
+    color:var(--muted);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+  }
+
+</style>
+<body>
+
+  <div class="bg-layer"></div>
+  <div class="bg-overlay"></div>
+
+  <div class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow">R Bishop Music</div>
+      <h1 class="hero-name">Richard Bishop</h1>
+      <div class="hero-page-title">Playlist Records</div>
+      <img class="hero-tagline-img" src="https://i.imgur.com/x2qhXHu.png" alt="No bullshit. No apologies. No regrets.">
+    </div>
+  </div>
+
+  <div class="glow-divider"></div>
+
+  <nav class="site-nav">
+    <a class="nav-link" href="https://nobs.rocks/hub" target="_blank" rel="noopener">
+      <img class="nav-icon" src="https://i.imgur.com/yJj97eK.png" alt="The Hub">
+      <span class="nav-label">The Hub</span>
+    </a>
+    <a class="nav-link" href="https://nobs.rocks/spotify" target="_blank" rel="noopener">
+      <img class="nav-icon" src="https://i.imgur.com/YIFci5h.png" alt="Spotify">
+      <span class="nav-label">Spotify</span>
+    </a>
+    <a class="nav-link" href="https://nobs.rocks/X" target="_blank" rel="noopener">
+      <img class="nav-icon" src="https://i.imgur.com/kSm4Hi4.png" alt="X">
+      <span class="nav-label">X</span>
+    </a>
+    <a class="nav-link" href="https://nobs.rocks/press" target="_blank" rel="noopener">
+      <img class="nav-icon" src="https://i.imgur.com/MIZ3Bb5.png" alt="Press & Media">
+      <span class="nav-label">Press &amp; Media</span>
+    </a>
+    <a class="nav-link" href="mailto:rbishop_fans@proton.me">
+      <img class="nav-icon" src="https://i.imgur.com/VQ7tUJX.png" alt="Contact">
+      <span class="nav-label">Contact</span>
+    </a>
+  </nav>
+
+  <div class="container">
+    <div class="dashboard">
+
+      <!-- LEFT COLUMN: Song placement counts -->
+      <div class="col col-left">
+        <div class="section-label">By Track</div>
+        <div class="song-list">
+
+          <div class="song-row">
+            <span class="song-name">Alone</span>
+            <span class="song-count">3<span class="song-count-label">PL</span></span>
+          </div>
+
+          <div class="song-row">
+            <span class="song-name">Still Standing</span>
+            <span class="song-count">3<span class="song-count-label">PL</span></span>
+          </div>
+
+          <div class="song-row">
+            <span class="song-name">Blood &amp; Dirt</span>
+            <span class="song-count">2<span class="song-count-label">PL</span></span>
+          </div>
+
+          <div class="song-row">
+            <span class="song-name">Nothing Left to Lose</span>
+            <span class="song-count">2<span class="song-count-label">PL</span></span>
+          </div>
+
+          <div class="song-row">
+            <span class="song-name">Daddy's Girl</span>
+            <span class="song-count">1<span class="song-count-label">PL</span></span>
+          </div>
+
+        </div>
+
+        <div class="total-row">
+          <span class="total-label">Total Placements</span>
+          <span class="total-value">11</span>
+        </div>
+
+        <div class="history-block">
+          <div class="history-label">All-Time Placements</div>
+          <div class="history-value">12</div>
+          <div class="history-sub">11 active + 1 past (Saturday Night Pulse — Thriller)</div>
+        </div>
+
+        <div class="cta-stack">
+          <a class="cta-btn cta-btn-primary" href="https://nobs.rocks/gumroad" target="_blank" rel="noopener">Buy Still Standing</a>
+          <a class="cta-btn cta-btn-secondary" href="https://nobs.rocks/youtube" target="_blank" rel="noopener">Subscribe on YouTube</a>
+          <button class="cta-btn cta-btn-secondary" id="share-btn" type="button" onclick="
+            if(navigator.share){
+              navigator.share({title:'Richard Bishop — Playlist Records', url:window.location.href}).catch(()=>{});
+            } else {
+              navigator.clipboard.writeText(window.location.href).then(()=>{
+                this.textContent='Link Copied';
+                setTimeout(()=>{this.textContent='Share';},1800);
+              });
+            }
+          ">Share</button>
+        </div>
+      </div>
+
+      <!-- CENTER COLUMN: current and past playlists -->
+      <div class="col col-center">
+
+        <div class="playlist-block">
+          <div class="section-label">Current Playlists</div>
+          <div class="playlist-grid">
+
+            <div class="playlist-card">
+              <div class="playlist-art">
+                <img src="https://i.imgur.com/e6ulenF.jpeg" alt="AAA Pass Pop Punk Semi Final cover art">
+                <span class="playlist-platform-tag">Spotify</span>
+              </div>
+              <div class="playlist-name">AAA Pass - Pop Punk Semi Final</div>
+              <div class="playlist-curator">Mark Hughes</div>
+              <div class="playlist-meta">
+                <span class="playlist-track">Still Standing</span>
+                <span class="playlist-saves">100</span>
+              </div>
+              <div class="playlist-dates">Added Jun 18, 2026</div>
+            </div>
+
+            <div class="playlist-card">
+              <div class="playlist-art">
+                <img src="https://i.imgur.com/yAGHcDs.jpeg" alt="NextHitRadio cover art">
+                <span class="playlist-platform-tag">Spotify</span>
+              </div>
+              <div class="playlist-name">NextHitRadio</div>
+              <div class="playlist-curator">Danilo Cangemi</div>
+              <div class="playlist-meta">
+                <span class="playlist-track">Still Standing</span>
+                <span class="playlist-saves">1,229</span>
+              </div>
+              <div class="playlist-dates">Added Jun 18, 2026</div>
+            </div>
+
+            <div class="playlist-card">
+              <div class="playlist-art">
+                <img src="https://i.imgur.com/uPiSViN.jpeg" alt="AAA Pass Pop Punk and Junk cover art">
+                <span class="playlist-platform-tag">Spotify</span>
+              </div>
+              <div class="playlist-name">AAA Pass - Pop Punk &amp; Junk</div>
+              <div class="playlist-curator">Mark Hughes</div>
+              <div class="playlist-meta">
+                <span class="playlist-track">Still Standing</span>
+                <span class="playlist-saves">73</span>
+              </div>
+              <div class="playlist-dates">Added Jun 18, 2026</div>
+            </div>
+
+            <div class="playlist-card">
+              <div class="playlist-art">
+                <img src="https://i.imgur.com/eIBo789.jpeg" alt="Upcoming Artists of 2026! cover art">
+                <span class="playlist-platform-tag">Spotify</span>
+              </div>
+              <div class="playlist-name">Upcoming Artists of 2026!</div>
+              <div class="playlist-curator">Shanie T</div>
+              <div class="playlist-meta">
+                <span class="playlist-track">Blood &amp; Dirt</span>
+                <span class="playlist-saves">515</span>
+              </div>
+              <div class="playlist-dates">Added Jun 14, 2026</div>
+            </div>
+
+            <div class="playlist-card">
+              <div class="playlist-art">
+                <img src="https://i.imgur.com/OBlyM56.jpeg" alt="AI-Pocalypse Best of AI Rock cover art">
+                <span class="playlist-platform-tag">Spotify</span>
+              </div>
+              <div class="playlist-name">AI-Pocalypse: Best of AI Rock</div>
+              <div class="playlist-curator">James Osswald</div>
+              <div class="playlist-meta">
+                <span class="playlist-track">Blood &amp; Dirt</span>
+                <span class="playlist-saves">74</span>
+              </div>
+              <div class="playlist-dates">Added Jun 13, 2026</div>
+            </div>
+
+            <div class="playlist-card">
+              <div class="playlist-art">
+                <img src="https://i.imgur.com/ewDO6xo.jpeg" alt="Rock in Rotation cover art">
+                <span class="playlist-platform-tag">Spotify</span>
+              </div>
+              <div class="playlist-name">Rock in Rotation</div>
+              <div class="playlist-curator">Underground Si Muove</div>
+              <div class="playlist-meta">
+                <span class="playlist-track">Daddy's Girl</span>
+                <span class="playlist-saves">870</span>
+              </div>
+              <div class="playlist-dates">Added Jun 10, 2026</div>
+            </div>
+
+            <div class="playlist-card">
+              <div class="playlist-art">
+                <img src="https://i.imgur.com/c3CDWKf.jpeg" alt="Hard Rock Essential cover art">
+                <span class="playlist-platform-tag">Spotify</span>
+              </div>
+              <div class="playlist-name">Hard Rock Essential</div>
+              <div class="playlist-curator">Zampi_Music_Promo</div>
+              <div class="playlist-meta">
+                <span class="playlist-track">Alone</span>
+                <span class="playlist-saves">559</span>
+              </div>
+              <div class="playlist-dates">Added Jun 8, 2026</div>
+            </div>
+
+            <div class="playlist-card">
+              <div class="playlist-art">
+                <img src="https://i.imgur.com/8bMKY7X.jpeg" alt="X-Rated Grunge Hard Rock 90s cover art">
+                <span class="playlist-platform-tag">Spotify</span>
+              </div>
+              <div class="playlist-name">X-Rated Grunge Hard Rock 90s</div>
+              <div class="playlist-curator">Zampi_Music_Promo</div>
+              <div class="playlist-meta">
+                <span class="playlist-track">Alone</span>
+                <span class="playlist-saves">466</span>
+              </div>
+              <div class="playlist-dates">Added Jun 8, 2026</div>
+            </div>
+
+            <div class="playlist-card">
+              <div class="playlist-art">
+                <img src="https://i.imgur.com/Uo2rqwq.jpeg" alt="Seattle Grunge Calling cover art">
+                <span class="playlist-platform-tag">Spotify</span>
+              </div>
+              <div class="playlist-name">Seattle Grunge Calling</div>
+              <div class="playlist-curator">Zampi_Music_Promo</div>
+              <div class="playlist-meta">
+                <span class="playlist-track">Alone</span>
+                <span class="playlist-saves">268</span>
+              </div>
+              <div class="playlist-dates">Added Jun 8, 2026</div>
+            </div>
+
+            <div class="playlist-card">
+              <div class="playlist-art">
+                <img src="https://i.imgur.com/jZ6jF9U.jpeg" alt="Rock Hot List cover art">
+                <span class="playlist-platform-tag">Spotify</span>
+              </div>
+              <div class="playlist-name">Rock Hot List</div>
+              <div class="playlist-curator">EGM Playlists</div>
+              <div class="playlist-meta">
+                <span class="playlist-track">Nothing Left to Lose</span>
+                <span class="playlist-saves">1,655</span>
+              </div>
+              <div class="playlist-dates">Added Jun 5, 2026</div>
+            </div>
+
+            <div class="playlist-card">
+              <div class="playlist-art">
+                <img src="https://i.imgur.com/fvNTPaw.jpeg" alt="GG AYPE Modern Rock 2026 cover art">
+                <span class="playlist-platform-tag">YouTube</span>
+              </div>
+              <div class="playlist-name">Modern Rock 2026 — GG AYPE: The Vault</div>
+              <div class="playlist-curator">GG AYPE Artist Spotlight</div>
+              <div class="playlist-meta">
+                <span class="playlist-track">Nothing Left to Lose</span>
+                <span class="playlist-saves">89</span>
+              </div>
+              <div class="playlist-dates">Added May 1, 2026</div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="glow-divider glow-divider-inline"></div>
+
+        <div class="playlist-block">
+          <div class="section-label">Past Playlists</div>
+          <div class="playlist-grid">
+
+            <div class="playlist-card removed">
+              <div class="playlist-art">
+                <div class="playlist-art-icon">Art pending<br>Saturday Night Pulse</div>
+                <span class="playlist-platform-tag">Spotify</span>
+              </div>
+              <div class="playlist-name">Saturday Night Pulse</div>
+              <div class="playlist-curator">Thriller / Thriller FM</div>
+              <div class="playlist-meta">
+                <span class="playlist-track">Blood &amp; Dirt</span>
+                <span class="playlist-saves">999</span>
+              </div>
+              <div class="playlist-dates">Added Apr 14, 2026 — No longer active</div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN: metrics -->
+      <div class="col col-right">
+        <div class="section-label">Metrics</div>
+
+        <div class="metric-block">
+          <div class="metric-label">Total Saves / Subscribers — Active</div>
+          <div class="metric-value green">5,898</div>
+          <div class="metric-sub">Across 11 confirmed live placements</div>
+        </div>
+
+        <div class="metric-block">
+          <div class="metric-label">Active Placements</div>
+          <div class="metric-value">11</div>
+          <div class="metric-sub">10 Spotify, 1 YouTube</div>
+        </div>
+
+        <div class="metric-block">
+          <div class="metric-label">Curators / Sources</div>
+          <div class="metric-value">8</div>
+          <div class="metric-sub">EGM Playlists, Shanie T, Underground Si Muove, Zampi_Music_Promo, James Osswald, GG AYPE, Mark Hughes, Danilo Cangemi</div>
+        </div>
+
+        <div class="metric-divider"></div>
+
+        <div class="section-label" style="margin-bottom:14px;">Saves By Playlist</div>
+
+        <div class="breakdown-row"><span>NextHitRadio</span><span>1,229</span></div>
+        <div class="breakdown-row"><span>Rock Hot List</span><span>1,655</span></div>
+        <div class="breakdown-row"><span>Rock in Rotation</span><span>870</span></div>
+        <div class="breakdown-row"><span>Hard Rock Essential</span><span>559</span></div>
+        <div class="breakdown-row"><span>Upcoming Artists of 2026!</span><span>515</span></div>
+        <div class="breakdown-row"><span>X-Rated Grunge HR 90s</span><span>466</span></div>
+        <div class="breakdown-row"><span>Seattle Grunge Calling</span><span>268</span></div>
+        <div class="breakdown-row"><span>AAA Pass - Semi Final</span><span>100</span></div>
+        <div class="breakdown-row"><span>AI-Pocalypse</span><span>74</span></div>
+        <div class="breakdown-row"><span>AAA Pass - Pop Punk &amp; Junk</span><span>73</span></div>
+        <div class="breakdown-row"><span>GG AYPE: The Vault (YT)</span><span>89</span></div>
+
+        <div class="metric-divider"></div>
+
+        <div class="metric-block">
+          <div class="metric-label">Groover Campaign 1 Result</div>
+          <div class="metric-value">2 / 13</div>
+          <div class="metric-sub">2 placements, 1 magazine feature</div>
+        </div>
+
+        <div class="metric-divider"></div>
+
+        <div class="section-label" style="margin-bottom:14px;">Albums</div>
+
+        <div class="discog-item">
+          <div class="discog-art">
+            <img src="https://i.imgur.com/o740STE.png" alt="Still Standing album cover">
+          </div>
+          <div class="discog-info">
+            <div class="discog-name">Still Standing</div>
+            <div class="discog-date">Released Apr 28, 2026</div>
+          </div>
+        </div>
+        <div class="discog-blurb">No label. No backing. Eleven tracks built from scratch by a single father who refused to quit. Drop-C, baritone, no apologies.</div>
+
+        <div class="metric-divider"></div>
+
+        <div class="section-label" style="margin-bottom:14px;">Singles</div>
+
+        <div class="discog-item">
+          <div class="discog-art">
+            <div class="discog-art-icon">Cover<br>Pending</div>
+          </div>
+          <div class="discog-info">
+            <div class="discog-name">Carry Them Home</div>
+            <div class="discog-date upcoming">Releases Jul 3, 2026</div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="glow-divider"></div>
+
+  <footer>
+    <img class="footer-fist" src="https://i.imgur.com/Z7dnWfU.png" alt="R Bishop Music fist logo">
+    <div class="footer-name">R Bishop Music</div>
+    <img class="footer-tagline-img" src="https://i.imgur.com/x2qhXHu.png" alt="No bullshit. No apologies. No regrets.">
+
+    <div class="footer-links">
+      <a href="https://nobs.rocks/hub" target="_blank" rel="noopener">The Hub</a>
+      <a href="https://nobs.rocks/spotify" target="_blank" rel="noopener">Spotify</a>
+      <a href="https://nobs.rocks/X" target="_blank" rel="noopener">X</a>
+      <a href="https://nobs.rocks/press" target="_blank" rel="noopener">Press &amp; Media</a>
+      <a href="mailto:rbishop_fans@proton.me">Contact</a>
+    </div>
+
+    <div class="footer-copyright">&copy; R Bishop Music</div>
+
+    <div class="footer-meta">Last Updated June 18, 2026</div>
+  </footer>
+
+</body>
+</html>
