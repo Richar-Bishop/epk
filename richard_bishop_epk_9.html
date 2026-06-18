@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Richard Bishop — Independent Hard Rock Artist | Veteran | Still Standing Album | Press Kit & Media">
+    <meta name="description" content="Richard Bishop — Independent Hard Rock Artist & U.S. Veteran | Still Standing Album | Press Kit">
     <title>Richard Bishop — Press & Media</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600;700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,300&display=swap');
@@ -11,43 +11,55 @@
         :root {
             --black: #080808;
             --dark: #111;
-            --surface: #1a1a1a;
-            --border: #333;
-            --red: #B62323;
+            --surface: rgba(22,22,22,0.88);
+            --border: #262626;
+            --red: #6b1010;
+            --red-bright: #B62323;
             --white: #ede9e0;
-            --muted: #888;
+            --muted: #666660;
+            --display: 'Oswald', sans-serif;
+            --body: 'Source Sans 3', sans-serif;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * { box-sizing: border-box; margin:0; padding:0; }
         body {
             background: var(--black);
             color: var(--white);
-            font-family: 'Source Sans 3', sans-serif;
-            line-height: 1.6;
+            font-family: var(--body);
             font-size: 16px;
+            line-height: 1.6;
         }
 
         .hero {
             position: relative;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.85)), url('https://i.imgur.com/gS7s3FZ.jpeg') center/cover no-repeat;
+            background: linear-gradient(rgba(8,8,8,0.75), rgba(8,8,8,0.9)), url('https://i.imgur.com/gS7s3FZ.jpeg') center/cover no-repeat;
         }
 
         .hero-content h1 {
-            font-family: 'Oswald', sans-serif;
-            font-size: clamp(3rem, 8vw, 6rem);
-            letter-spacing: 0.05em;
+            font-family: var(--display);
+            font-size: clamp(3.2rem, 9vw, 6.5rem);
+            font-weight: 700;
             text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
-        .hero-content p {
+        .hero-content .subtitle {
+            font-family: var(--display);
             font-size: 1.4rem;
-            margin-top: 1rem;
-            opacity: 0.9;
+            letter-spacing: 0.15em;
+            color: var(--red-bright);
+            margin-top: 15px;
+        }
+
+        .hero-tagline-img {
+            margin-top: 40px;
+            max-width: 420px;
+            filter: drop-shadow(0 4px 16px rgba(0,0,0,0.6));
         }
 
         .section {
@@ -57,118 +69,108 @@
         }
 
         .section-label {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.1rem;
-            letter-spacing: 0.2em;
+            font-family: var(--display);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.4em;
             text-transform: uppercase;
-            color: var(--red);
-            margin-bottom: 40px;
+            color: var(--red-bright);
             text-align: center;
+            margin-bottom: 50px;
         }
 
         .bio-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
+            grid-template-columns: 1fr 380px;
+            gap: 60px;
             align-items: center;
         }
 
         .bio-text {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
         }
 
         .discog-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
         }
 
         .discog-item {
             background: var(--surface);
-            padding: 20px;
             border: 1px solid var(--border);
+            padding: 24px;
         }
 
         .social-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
-
-        .contact-block {
-            background: var(--surface);
-            padding: 40px;
+            gap: 25px;
             text-align: center;
-            border: 1px solid var(--border);
         }
 
-        .contact-email {
-            font-size: 1.5rem;
-            color: var(--red);
+        .contact {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 50px 40px;
+            text-align: center;
+        }
+
+        .contact a {
+            color: var(--red-bright);
+            font-size: 1.6rem;
             text-decoration: none;
         }
 
         footer {
             text-align: center;
-            padding: 40px 20px;
-            font-size: 0.9rem;
+            padding: 60px 24px 40px;
             color: var(--muted);
+            font-size: 0.95rem;
         }
 
-        @media (max-width: 768px) {
-            .section { padding: 60px 16px; }
+        @media (max-width: 900px) {
+            .bio-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <!-- HERO -->
     <section class="hero">
         <div class="hero-content">
             <h1>Richard Bishop</h1>
-            <p>Hard Rock / Blues-Rock Artist • U.S. Military Veteran • Independent</p>
-            <img src="https://i.imgur.com/x2qhXHu.png" alt="No bullshit. No apologies. No regrets." style="max-width: 420px; margin-top: 30px;">
+            <div class="subtitle">Hard Rock Artist • U.S. Veteran</div>
+            <img class="hero-tagline-img" src="https://i.imgur.com/x2qhXHu.png" alt="No bullshit. No apologies. No regrets.">
         </div>
     </section>
 
-    <!-- BIO -->
     <section class="section">
         <div class="section-label">About Richard Bishop</div>
         <div class="bio-grid">
-            <div>
-                <p class="bio-text">
-                    Richard Bishop is an independent hard rock / blues-rock artist and U.S. military veteran from Fairfield, Iowa. 
-                    His music is raw, honest, and deeply personal — channeling the invisible wounds of service, generational values, 
-                    loss, resilience, and the everyday fight to keep standing.
-                </p>
-                <p class="bio-text" style="margin-top: 20px;">
-                    No label. No backing. Just one man, a baritone guitar in Drop-C, and a lifetime of blood, dirt, and hard-won stories.
-                </p>
+            <div class="bio-text">
+                <p>Richard Bishop is an independent hard rock / blues-rock artist and U.S. military veteran from Fairfield, Iowa. His music channels the invisible wounds of service, generational values, loss, resilience, and the everyday fight to keep standing.</p>
+                <p style="margin-top:25px">No label. No backing. Eleven tracks built from scratch by a single father who refused to quit. Drop-C, baritone, no apologies.</p>
             </div>
-            <div>
-                <img src="https://i.imgur.com/o740STE.png" alt="Still Standing Album Cover" style="width:100%; border: 1px solid var(--border);">
-            </div>
+            <img src="https://i.imgur.com/o740STE.png" alt="Still Standing" style="width:100%; border:1px solid var(--border);">
         </div>
     </section>
 
-    <!-- DISCOGRAPHY -->
-    <section class="section" style="background: var(--dark);">
+    <section class="section" style="background:var(--dark);">
         <div class="section-label">Discography</div>
         <div class="discog-grid">
             <div class="discog-item">
                 <strong>Still Standing</strong><br>
-                <em>Full Album • May 16, 2026</em><br>
-                Independent Release • 11 tracks
+                Full Album • May 16, 2026<br>
+                Independent Release • 11 Tracks
             </div>
             <div class="discog-item">
                 <strong>Carry Them Home</strong><br>
-                <em>Single • July 3, 2026</em><br>
+                Single • July 3, 2026<br>
                 Upcoming
             </div>
         </div>
     </section>
 
-    <!-- SOCIAL -->
     <section class="section">
         <div class="section-label">Social & Links</div>
         <div class="social-grid">
@@ -177,22 +179,21 @@
             <div><strong>YouTube</strong><br>@RichardBishopArtist</div>
             <div><strong>Bluesky</strong><br>@richard-bishop.bsky.social</div>
             <div><strong>TikTok</strong><br>@Richard_Bishop_Artist</div>
-            <div><strong>Link Hub</strong><br><a href="https://nobs.rocks/hub" target="_blank">nobs.rocks/hub</a></div>
+            <div><strong>The Hub</strong><br><a href="https://nobs.rocks/hub" target="_blank" style="color:var(--red-bright);">nobs.rocks/hub</a></div>
         </div>
     </section>
 
-    <!-- CONTACT -->
     <section class="section">
         <div class="section-label">Press & Media Contact</div>
-        <div class="contact-block">
-            <p>For all press, media, sync, radio, and playlist inquiries</p>
-            <a href="mailto:rbishop_press@proton.me" class="contact-email">rbishop_press@proton.me</a>
-            <p style="margin-top: 20px; font-size: 0.95rem;">Response within 48 hours • R Bishop Music • Fairfield, Iowa</p>
+        <div class="contact">
+            <p>For press, media, sync, radio & playlist inquiries</p>
+            <a href="mailto:rbishop_press@proton.me">rbishop_press@proton.me</a>
+            <p style="margin-top:25px; font-size:0.95rem;">Response within 48 hours • Fairfield, Iowa</p>
         </div>
     </section>
 
     <footer>
-        © Richard Bishop / R Bishop Music • Fairfield, Iowa • All Rights Reserved
+        © R Bishop Music • Fairfield, Iowa • All Rights Reserved
     </footer>
 
 </body>
